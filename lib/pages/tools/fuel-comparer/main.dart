@@ -29,7 +29,6 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
 
   List<FuelType> fuelTypes = [];
 
-  // TODO: criar models no InitState
   @override
   void initState() {
     super.initState();
