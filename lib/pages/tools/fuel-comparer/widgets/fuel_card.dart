@@ -1,9 +1,10 @@
+import 'package:auto_tools/models/fuel_type.dart';
 import 'package:flutter/material.dart';
 
 class FuelCard extends StatefulWidget {
   const FuelCard(this.fuelType, {Key? key}) : super(key: key);
 
-  final Map fuelType;
+  final FuelType fuelType;
 
   @override
   _FuelCardState createState() => _FuelCardState();
@@ -11,10 +12,10 @@ class FuelCard extends StatefulWidget {
 
 class _FuelCardState extends State<FuelCard> {
   late final TextEditingController _priceController =
-      TextEditingController(text: widget.fuelType['price'].toString());
+      TextEditingController(text: widget.fuelType.price?.toString());
 
   late final TextEditingController _consumptionController =
-      TextEditingController(text: widget.fuelType['consumption'].toString());
+      TextEditingController(text: widget.fuelType.consumption?.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _FuelCardState extends State<FuelCard> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Text(
-                widget.fuelType['title'],
+                widget.fuelType.title,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
