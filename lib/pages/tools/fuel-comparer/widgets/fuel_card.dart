@@ -1,4 +1,5 @@
 import 'package:auto_tools/models/fuel_type.dart';
+import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 
 class FuelCard extends StatefulWidget {
@@ -34,6 +35,11 @@ class _FuelCardState extends State<FuelCard> {
             ),
             TextFormField(
               controller: _priceController,
+              inputFormatters: [
+                TextInputMask(
+                  mask: 'R\$! 9,99',
+                )
+              ],
               decoration: const InputDecoration(
                 labelText: 'Preço',
                 hintText: 'R\$ 3,84',
@@ -41,6 +47,11 @@ class _FuelCardState extends State<FuelCard> {
             ),
             TextFormField(
               controller: _consumptionController,
+              inputFormatters: [
+                TextInputMask(
+                  mask: '99,99 !K!m!/!l!',
+                )
+              ],
               decoration: const InputDecoration(
                 labelText: 'Consumo',
                 hintText: '8,4 Km/L',
