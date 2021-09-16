@@ -1,4 +1,4 @@
-import 'package:auto_tools/pages/home/main.dart';
+import 'package:auto_tools/pages/home/home_page.dart';
 
 import 'routes.dart';
 import 'package:flutter/material.dart';
