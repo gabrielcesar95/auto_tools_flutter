@@ -19,6 +19,7 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
       'id': 'abc123',
       'title': 'Etanol',
       'selected': false,
+      'price': 5.0,
     },
     {
       'id': 'xyz789',
