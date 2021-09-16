@@ -1,6 +1,8 @@
 import 'package:auto_tools/models/fuel_type.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_card.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_chip.dart';
+import 'package:auto_tools/providers/fuel_comparer_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 class FuelComparerPage extends StatefulWidget {
@@ -66,6 +68,17 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
               SizedBox.fromSize(
                 size: const Size.fromHeight(8),
               ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      context.watch<FuelComparerProvider>().count.toString()),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
@@ -84,7 +97,7 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.ac_unit),
-        onPressed: () => {},
+        onPressed: () => context.read<FuelComparerProvider>().add(),
       ),
     );
   }
