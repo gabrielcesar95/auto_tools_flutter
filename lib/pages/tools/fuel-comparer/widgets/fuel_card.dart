@@ -14,7 +14,7 @@ class FuelCard extends StatefulWidget {
 
 class _FuelCardState extends State<FuelCard> {
   late final TextEditingController _priceController =
-      TextEditingController(text: widget.fuelType.price.toString());
+      TextEditingController(text: widget.fuelType.price?.toString());
 
   late final TextEditingController _consumptionController =
       TextEditingController(text: widget.fuelType.consumption?.toString());
@@ -60,6 +60,9 @@ class _FuelCardState extends State<FuelCard> {
                 labelText: 'Consumo',
                 hintText: '8,4 Km/L',
               ),
+              onChanged: (value) {
+                widget.fuelType.setConsumption(value);
+              },
             )
           ],
         ),

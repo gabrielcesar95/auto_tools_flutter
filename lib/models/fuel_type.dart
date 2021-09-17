@@ -1,16 +1,16 @@
 class FuelType {
   String id;
   String title;
-  double price;
+  double? price;
   double? consumption;
   bool selected = false;
 
-  FuelType(this.id, this.title, {this.price = 0, this.consumption});
+  FuelType(this.id, this.title, {this.price, this.consumption});
 
   FuelType.fromMap(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
-        price = json['price'] ?? 0,
+        price = json['price'],
         consumption = json['consumption'];
 
   setPrice(String newPrice) {
@@ -21,9 +21,19 @@ class FuelType {
     if (np.isNotEmpty) {
       price = double.parse(np);
     } else {
-      price = 0;
+      price = null;
     }
+  }
 
-    print(price);
+  setConsumption(String newConsumption) {
+    String nc = newConsumption.replaceAll(RegExp(r'[ Km/l]'), '');
+
+    nc = nc.replaceAll(RegExp(r','), '.');
+
+    if (nc.isNotEmpty) {
+      consumption = double.parse(nc);
+    } else {
+      consumption = null;
+    }
   }
 }

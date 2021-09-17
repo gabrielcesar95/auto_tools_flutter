@@ -1,8 +1,7 @@
 import 'package:auto_tools/models/fuel_type.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_card.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_chip.dart';
-import 'package:auto_tools/providers/fuel_comparer_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:auto_tools/pages/tools/fuel-comparer/widgets/results.dart';
 import 'package:flutter/material.dart';
 
 class FuelComparerPage extends StatefulWidget {
@@ -40,8 +39,6 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
 
   @override
   Widget build(BuildContext context) {
-    // fuelTypes = context.watch<FuelComparerProvider>().fuelTypes;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comparador de Combustíveis'),
@@ -80,16 +77,20 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
                           ))
                       .toList(),
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.ac_unit),
-        onPressed: () =>
-            context.read<FuelComparerProvider>().saveAll(fuelTypes),
+        onPressed: () => _compareFuelTypes(),
       ),
     );
+  }
+
+  _compareFuelTypes() {
+    showModalBottomSheet(
+        context: context, builder: (context) => Results(fuelTypes[0]));
   }
 }
