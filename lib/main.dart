@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => FuelComparerProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (_) => FuelComparerProvider()),
+    ],
     child: const MyApp(),
   ));
 }

@@ -21,7 +21,6 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
       'id': 'abc123',
       'title': 'Etanol',
       'selected': false,
-      'price': 5.0,
     },
     {
       'id': 'xyz789',
@@ -36,11 +35,13 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
   void initState() {
     super.initState();
 
-    fuelTypes = fuelTypes_backend.map((ft) => FuelType.fromMap(ft)).toList();
+    // fuelTypes = fuelTypes_backend.map((ft) => FuelType.fromMap(ft)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    fuelTypes = context.watch<FuelComparerProvider>().fuelTypes;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comparador de Combustíveis'),
@@ -68,17 +69,6 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
               SizedBox.fromSize(
                 size: const Size.fromHeight(8),
               ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      context.watch<FuelComparerProvider>().count.toString()),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
@@ -97,7 +87,8 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.ac_unit),
-        onPressed: () => context.read<FuelComparerProvider>().add(),
+        onPressed: () =>
+            context.read<FuelComparerProvider>().saveAll(fuelTypes),
       ),
     );
   }

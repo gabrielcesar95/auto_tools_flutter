@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
-class FuelType extends ChangeNotifier {
+class FuelType {
   String id;
   String title;
   double price;
@@ -14,4 +12,18 @@ class FuelType extends ChangeNotifier {
         title = json['title'],
         price = json['price'] ?? 0,
         consumption = json['consumption'];
+
+  setPrice(String newPrice) {
+    String np = newPrice.replaceAll(RegExp(r'[R$ ]'), '');
+
+    np = np.replaceAll(RegExp(r','), '.');
+
+    if (np.isNotEmpty) {
+      price = double.parse(np);
+    } else {
+      price = 0;
+    }
+
+    print(price);
+  }
 }

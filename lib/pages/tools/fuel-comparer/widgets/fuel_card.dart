@@ -1,6 +1,7 @@
 import 'package:auto_tools/models/fuel_type.dart';
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FuelCard extends StatefulWidget {
   const FuelCard(this.fuelType, {Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class FuelCard extends StatefulWidget {
 
 class _FuelCardState extends State<FuelCard> {
   late final TextEditingController _priceController =
-      TextEditingController(text: widget.fuelType.price?.toString());
+      TextEditingController(text: widget.fuelType.price.toString());
 
   late final TextEditingController _consumptionController =
       TextEditingController(text: widget.fuelType.consumption?.toString());
@@ -44,6 +45,9 @@ class _FuelCardState extends State<FuelCard> {
                 labelText: 'Preço',
                 hintText: 'R\$ 3,84',
               ),
+              onChanged: (value) {
+                widget.fuelType.setPrice(value);
+              },
             ),
             TextFormField(
               controller: _consumptionController,

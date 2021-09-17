@@ -1,16 +1,17 @@
+import 'dart:collection';
+
+import 'package:auto_tools/models/fuel_type.dart';
 import 'package:flutter/cupertino.dart';
 
 class FuelComparerProvider with ChangeNotifier {
-  int count = 0;
+  List<FuelType> _fuelTypes = [];
 
-  add() {
-    print('add');
-    count++;
+  UnmodifiableListView<FuelType> get fuelTypes =>
+      UnmodifiableListView(_fuelTypes);
+
+  saveAll(List<FuelType> fuelTypes) {
+    _fuelTypes = fuelTypes;
 
     notifyListeners();
-  }
-
-  subtract() {
-    count--;
   }
 }
