@@ -35,12 +35,12 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
   void initState() {
     super.initState();
 
-    // fuelTypes = fuelTypes_backend.map((ft) => FuelType.fromMap(ft)).toList();
+    fuelTypes = fuelTypes_backend.map((ft) => FuelType.fromMap(ft)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    fuelTypes = context.watch<FuelComparerProvider>().fuelTypes;
+    // fuelTypes = context.watch<FuelComparerProvider>().fuelTypes;
 
     return Scaffold(
       appBar: AppBar(
