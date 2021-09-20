@@ -5,6 +5,13 @@ class FuelType {
   double? consumption;
   bool selected = false;
 
+  double get pricePerLiter {
+    if (price != null && consumption != null) {
+      return price! / consumption!;
+    }
+    return 0;
+  }
+
   FuelType(this.id, this.title, {this.price, this.consumption});
 
   FuelType.fromMap(Map<String, dynamic> json)

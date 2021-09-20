@@ -6,6 +6,12 @@ class Results extends StatelessWidget {
 
   const Results(this.fuelType, {Key? key}) : super(key: key);
 
+  String formatPricePerLiter() {
+    return fuelType.pricePerLiter
+        .toStringAsFixed(2)
+        .replaceAll(RegExp(r'[.]'), ',');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,9 +49,9 @@ class Results extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  const Text(
-                    'Preço por Km: R\$ 1,48',
-                    style: TextStyle(
+                  Text(
+                    'Preço por Km: R\$ ${formatPricePerLiter()}',
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),

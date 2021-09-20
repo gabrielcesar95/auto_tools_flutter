@@ -90,7 +90,21 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
   }
 
   _compareFuelTypes() {
+    FuelType cheaperFuelType;
+
+    List<FuelType> selectedTypes =
+        fuelTypes.where((ft) => ft.selected).toList();
+
+    cheaperFuelType = selectedTypes.reduce((value, element) =>
+        value.pricePerLiter < element.pricePerLiter ? value : element);
+
+    _showModal(cheaperFuelType);
+  }
+
+  _showModal(FuelType result) {
     showModalBottomSheet(
-        context: context, builder: (context) => Results(fuelTypes[0]));
+      context: context,
+      builder: (context) => Results(result),
+    );
   }
 }
