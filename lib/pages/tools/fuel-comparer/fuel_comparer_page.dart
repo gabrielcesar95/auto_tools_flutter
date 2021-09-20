@@ -1,6 +1,7 @@
 import 'package:auto_tools/models/fuel_type.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_card.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_chip.dart';
+import 'package:auto_tools/pages/tools/fuel-comparer/widgets/results.dart';
 import 'package:flutter/material.dart';
 
 class FuelComparerPage extends StatefulWidget {
@@ -76,15 +77,34 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
                           ))
                       .toList(),
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.ac_unit),
-        onPressed: () => {},
+        onPressed: () => _compareFuelTypes(),
       ),
+    );
+  }
+
+  _compareFuelTypes() {
+    FuelType cheaperFuelType;
+
+    List<FuelType> selectedTypes =
+        fuelTypes.where((ft) => ft.selected).toList();
+
+    cheaperFuelType = selectedTypes.reduce((value, element) =>
+        value.pricePerLiter < element.pricePerLiter ? value : element);
+
+    _showModal(cheaperFuelType);
+  }
+
+  _showModal(FuelType result) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Results(result),
     );
   }
 }
