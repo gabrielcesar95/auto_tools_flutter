@@ -2,6 +2,7 @@ import 'package:auto_tools/models/fuel_type.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_card.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_chip.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/results.dart';
+import 'package:auto_tools/shared/responsive.dart';
 import 'package:flutter/material.dart';
 
 class FuelComparerPage extends StatefulWidget {
@@ -50,17 +51,20 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
             children: [
               SizedBox(
                 width: double.maxFinite,
-                child: Wrap(
-                  spacing: 8,
-                  children: fuelTypes
-                      .map(
-                        (ft) => FuelChip(ft, onSelected: (selected) {
-                          setState(() {
-                            ft.selected = selected;
-                          });
-                        }),
-                      )
-                      .toList(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Wrap(
+                    spacing: 8,
+                    children: fuelTypes
+                        .map(
+                          (ft) => FuelChip(ft, onSelected: (selected) {
+                            setState(() {
+                              ft.selected = selected;
+                            });
+                          }),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
               SizedBox.fromSize(
@@ -68,7 +72,7 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
               ),
               Expanded(
                 child: GridView.count(
-                  crossAxisCount: 2,
+                  crossAxisCount: Responsive(context).gridTiles,
                   children: fuelTypes
                       .where((ft) => ft.selected)
                       .map((sft) => FuelCard(

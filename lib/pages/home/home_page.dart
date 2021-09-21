@@ -1,3 +1,5 @@
+import 'package:auto_tools/shared/responsive.dart';
+
 import 'widgets/menu_item.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +24,10 @@ class HomePage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Center(
-          child: GridView.count(crossAxisCount: 2, children: menus),
+          child: GridView.count(
+            crossAxisCount: Responsive(context).gridTiles,
+            children: menus,
+          ),
         ),
       ),
     );
