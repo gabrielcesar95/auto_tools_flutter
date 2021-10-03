@@ -95,7 +95,7 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.ac_unit),
+        child: const Icon(Icons.search),
         onPressed: () => _compareFuelTypes(),
       ),
     );
