@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class FuelType {
   String id;
   String title;
@@ -5,12 +7,8 @@ class FuelType {
   double? consumption;
   bool selected = false;
 
-  double get pricePerLiter {
-    if (price != null && consumption != null) {
-      return price! / consumption!;
-    }
-    return 0;
-  }
+  static CollectionReference collection =
+      FirebaseFirestore.instance.collection('fuelTypes');
 
   FuelType(this.id, this.title, {this.price, this.consumption});
 
@@ -19,6 +17,31 @@ class FuelType {
         title = json['title'],
         price = json['price'],
         consumption = json['consumption'];
+
+  static Future<List<FuelType>> find() async {
+    QuerySnapshot documents = await collection.get();
+    List<FuelType> models = [];
+
+    if (documents.docs.isNotEmpty) {
+      documents.docs.forEach((element) {
+        Map<String, dynamic> data = {
+          'id': element.id,
+          ...element.data() as Map<String, dynamic>
+        };
+
+        models.add(FuelType.fromMap(data));
+      });
+    }
+
+    return models;
+  }
+
+  double get pricePerLiter {
+    if (price != null && consumption != null) {
+      return price! / consumption!;
+    }
+    return 0;
+  }
 
   setPrice(String newPrice) {
     String np = newPrice.replaceAll(RegExp(r'[R$ ]'), '');
