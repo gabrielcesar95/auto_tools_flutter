@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -29,12 +30,32 @@
   <title>auto_tools</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+  <!-- Firebase Configuration -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCjgBXWXhf9EKG7jf5sSMi3Shso5r_JbSc",
+      authDomain: "cadcar-tests.firebaseapp.com",
+      projectId: "cadcar-tests",
+      storageBucket: "cadcar-tests.appspot.com",
+      messagingSenderId: "639062460622",
+      appId: "1:639062460622:web:4e61650c9662f71b9e689f",
+      measurementId: "G-KSBVBJQWPQ"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
   <script>
-    var serviceWorkerVersion = '3062073900';
+    var serviceWorkerVersion = '959715729';
     var scriptLoaded = false;
     function loadMainDartJs() {
       if (scriptLoaded) {
@@ -98,4 +119,5 @@
     }
   </script>
 </body>
+
 </html>
