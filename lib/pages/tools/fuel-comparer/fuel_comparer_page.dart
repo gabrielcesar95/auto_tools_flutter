@@ -3,8 +3,9 @@ import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_card.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/fuel_chip.dart';
 import 'package:auto_tools/pages/tools/fuel-comparer/widgets/results.dart';
 import 'package:auto_tools/shared/responsive.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:auto_tools/view_models/fuel_type.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FuelComparerPage extends StatefulWidget {
   static String route = 'tools/fuel-comparer';
@@ -16,27 +17,9 @@ class FuelComparerPage extends StatefulWidget {
 }
 
 class _FuelComparerPageState extends State<FuelComparerPage> {
-  // TODO: get fuelTypes form firebase
-  final List<Map<String, dynamic>> fuelTypes_backend = [
-    {
-      'id': 'abc123',
-      'title': 'Etanol',
-      'selected': false,
-    },
-    {
-      'id': 'xyz789',
-      'title': 'Gasolina',
-      'selected': false,
-    }
-  ];
-
-  List<FuelType> fuelTypes = [];
-
   @override
   void initState() {
     super.initState();
-
-    fuelTypes = fuelTypes_backend.map((ft) => FuelType.fromMap(ft)).toList();
   }
 
   @override
@@ -53,32 +36,37 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
               builder: (BuildContext context,
                   AsyncSnapshot<List<FuelType>> snapshot) {
                 if (snapshot.hasError) {
-                  return Text("Something went wrong");
+                  return const Center(
+                    child: Text('Falha ao obter combustíveis'),
+                  );
                 }
 
                 if (snapshot.connectionState == ConnectionState.done) {
+                  Provider.of<FuelTypeViewModel>(context)
+                      .setFuelTypes(snapshot.data!);
+
                   return Column(
                     children: [
                       SizedBox(
                         width: double.maxFinite,
                         child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Wrap(
-                              spacing: 8,
-                              children: snapshot.data!
-                                  .map(
-                                    (ft) => FuelChip(
-                                      ft,
-                                      onSelected: (selected) {
-                                        // TODO: Implementar uma ViewModel com o Provider, de modo a deixar de usar o setState. Acho que como o setState reconstrói o Widget, tá fazendo com que o FutureBuilder rode tudo de novo...
-                                        setState(() {
-                                          ft.selected = selected;
-                                        });
-                                      },
-                                    ),
-                                  )
-                                  .toList(),
-                            )),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Wrap(
+                            spacing: 8,
+                            children: snapshot.data!
+                                .map(
+                                  (ft) => FuelChip(
+                                    ft,
+                                    onSelected: (selected) {
+                                      Provider.of<FuelTypeViewModel>(context,
+                                              listen: false)
+                                          .setSelected(ft);
+                                    },
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
                       ),
                       SizedBox.fromSize(
                         size: const Size.fromHeight(8),
@@ -86,7 +74,9 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
                       Expanded(
                         child: GridView.count(
                           crossAxisCount: Responsive(context).gridTiles,
-                          children: snapshot.data!
+                          // children: snapshot.data!
+                          children: Provider.of<FuelTypeViewModel>(context)
+                              .fuelTypes
                               .where((ft) => ft.selected)
                               .map((sft) => FuelCard(
                                     sft,
@@ -115,7 +105,10 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
     FuelType cheaperFuelType;
 
     List<FuelType> selectedTypes =
-        fuelTypes.where((ft) => ft.selected).toList();
+        Provider.of<FuelTypeViewModel>(context, listen: false)
+            .fuelTypes
+            .where((ft) => ft.selected)
+            .toList();
 
     cheaperFuelType = selectedTypes.reduce((value, element) =>
         value.pricePerLiter < element.pricePerLiter ? value : element);
