@@ -1,5 +1,6 @@
 import 'package:auto_tools/pages/home/home_page.dart';
 import 'package:auto_tools/providers/fuel_comparer_provider.dart';
+import 'package:auto_tools/view_models/fuel_type.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
@@ -67,13 +68,18 @@ class _AppState extends State<App> {
       return const CircularProgressIndicator();
     }
 
-    return MaterialApp(
-      title: 'Auto Tools',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: FuelTypeViewModel()),
+      ],
+      child: MaterialApp(
+        title: 'Auto Tools',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: HomePage.route,
+        routes: routes,
       ),
-      initialRoute: HomePage.route,
-      routes: routes,
     );
   }
 }

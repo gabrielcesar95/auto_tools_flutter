@@ -117,7 +117,7 @@ class _FuelComparerPageState extends State<FuelComparerPage> {
   }
 
   _showModal(FuelType result) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
       builder: (context) => Results(result),
     );

@@ -43,6 +43,10 @@ class FuelType {
     return 0;
   }
 
+  toggle() {
+    selected = !selected;
+  }
+
   setPrice(String newPrice) {
     String np = newPrice.replaceAll(RegExp(r'[R$ ]'), '');
 
