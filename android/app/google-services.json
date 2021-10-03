@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "639062460622",
+    "project_id": "cadcar-tests",
+    "storage_bucket": "cadcar-tests.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639062460622:android:f4558801d3b33cdf9e689f",
+        "android_client_info": {
+          "package_name": "com.example.auto_tools"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639062460622-bjupoelu6gvpa6j6u8q53hfe7vl3ts4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.auto_tools",
+            "certificate_hash": "5f29b49fffefb185e7178d035285dc386299135e"
+          }
+        },
+        {
+          "client_id": "639062460622-i7o6m8ousn6mo8d2juiaud9m9rd6jqvm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLI_ErVvuIp3jZ3bY-bStKYy2DcLI7XCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639062460622-i7o6m8ousn6mo8d2juiaud9m9rd6jqvm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
